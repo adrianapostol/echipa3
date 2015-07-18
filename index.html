@@ -84,7 +84,7 @@
 	        var data = {type: 'getCategories'};
             
             if (typeof location != 'undefined' && location) {
-                data.location = location;
+                data.limit = location;
             }
             
             $.ajax({
@@ -107,7 +107,7 @@
 	        var data = {type: 'getLocations'};
             
             if (typeof category != 'undefined' && category) {
-                data.category = category;
+                data.limit = category;
             }
             
             $.ajax({

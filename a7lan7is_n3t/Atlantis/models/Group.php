@@ -80,7 +80,6 @@ class Groups extends Atlantis_Db_BaseModel
             if (!empty($category)) {
                 $select->where('LOWER(category_name) = ? ', strtolower($category));
             }
-            
             $row = $this->getAdapter()->fetchCol($select);
             
         } catch (Exception $e) {
