@@ -79,6 +79,52 @@
                 }
             
             });
+	    },
+	    getCategories :  function (location) {
+	        var data = {type: 'getCategories'};
+            
+            if (typeof location != 'undefined' && location) {
+                data.location = location;
+            }
+            
+            $.ajax({
+                url:      "/a7lan7is_n3t/availableData.php",
+                async:    false,
+                dataType: "json",
+                data:     data,
+                success:  function(json) {
+                    if (typeof callback === 'function') {
+                        callback(json);
+                    }
+                },
+                error :  function() {
+                    
+                }
+            
+            });
+	    },
+	    getLocation : function(category) {
+	        var data = {type: 'getLocations'};
+            
+            if (typeof category != 'undefined' && category) {
+                data.category = category;
+            }
+            
+            $.ajax({
+                url:      "/a7lan7is_n3t/availableData.php",
+                async:    false,
+                dataType: "json",
+                data:     data,
+                success:  function(json) {
+                    if (typeof callback === 'function') {
+                        callback(json);
+                    }
+                },
+                error :  function() {
+                    
+                }
+            
+            });
 	    }
 	}
     jQuery(document).ready(function($) {

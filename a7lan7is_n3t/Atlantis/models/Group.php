@@ -71,4 +71,40 @@ class Groups extends Atlantis_Db_BaseModel
         
         return $row;
     }
+    
+    public function getLocations($category = null)
+    {
+        try {
+            $select = $this->select()->from($this->_name, array('location'))->group('LOWER(location)');
+            
+            if (!empty($category)) {
+                $select->where('LOWER(category_name) = ? ', strtolower($category));
+            }
+            
+            $row = $this->getAdapter()->fetchCol($select);
+            
+        } catch (Exception $e) {
+            $row = array();
+        }
+        
+        return $row;
+    }
+    
+    public function getCategories($location = null) 
+    {
+        try {
+            $select = $this->select()->from($this->_name, array('category_name'))->group('LOWER(category_name)');
+            
+            if (!empty($location)) {
+                $select->where('LOWER(location) = ? ', strtolower($location));
+            }
+            
+            $row = $this->getAdapter()->fetchCol($select);
+        
+        } catch (Exception $e) {
+            $row = array();
+        }
+        
+        return $row;
+    }
 }
