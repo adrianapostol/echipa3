@@ -19,12 +19,20 @@
 	
 	var a7lan7is = {
 	   groups : {},
-	   loadGroups : function (name, callback) {
+	   loadGroups : function (name, category, location, callback) {
 	        var data = {};
 	        
 	        if (typeof name != 'undefined' && name) {
-	            data = {name : name};
+	            data.name = name;
 	        }
+	        
+	        if (typeof category != 'undefined' && category) {
+                data.category = category;
+            }
+	        
+	        if (typeof location != 'undefined' && location) {
+                data.location = location;
+            }
 	        
 	        $.ajax({
 	            url:      "/a7lan7is_n3t/getGroups.php",
@@ -33,14 +41,15 @@
 	            data:     data,
 	            success:  function(json) {
 	                if (json) {
-		                a7lan7is.groups = $.extend({}, a7lan7is.groups, json);
+		                a7lan7is.groups = json;
 		            }
-	                
-	            },
-	            complete :  function() {
 	                if (typeof callback === 'function') {
                         callback();
                     }
+	                
+	            },
+	            error :  function() {
+	                
 	            }
 	        
             });
@@ -56,7 +65,7 @@
     	}
 
     	function groupsList(term) {
-				a7lan7is.loadGroups(false, function() {
+				a7lan7is.loadGroups(null, null, null, function() {
 				    $.each( a7lan7is.groups, function( key, val ) {
 	                    term.echo('' + key);
 	                  })
@@ -64,9 +73,9 @@
     	}
 
     	function joinGroup(term, group) {
-    		a7lan7is.loadGroups(group, function() {
+    		a7lan7is.loadGroups(group, null , null, function() {
     		    if (typeof a7lan7is.groups[group] != 'undefined') {
-    		        window.open(a7lan7is.groups[group], '_blank');
+    		        window.open(a7lan7is.groups[group]['group_link'], '_blank');
                 } else {
                     term.echo(group + ' not found');
                 }
