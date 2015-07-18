@@ -336,6 +336,12 @@
 			    	term.echo("We go it! You're [[i;pink;black]" + nick + "]")
 			    	term.set_prompt(a7lan7is.nickname + " > ");
 
+			    } else if (command == 'recent-users') {
+						getUsers(term, null, null, null, 3);
+
+					} else if (command == 'recent-groups') {
+						groupsList(term, null, null, 3);
+
 			    } else if (command.match('^sudo')) {
 			    	term.set_prompt('Password:');
 

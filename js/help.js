@@ -5,6 +5,7 @@ var helpPrompt =
 "\n" +
 "[[;orange;black]Group Commands...................................................................] \n" +
 "groups[[;dimgray;black]......................................................]List available groups \n" +
+"recent-groups[[;dimgray;black]........................................]List recently created groups \n" +
 "groups-category <category>[[;dimgray;black]......................]List available groups by category \n" +
 "groups-location <location>[[;dimgray;black]......................]List available groups by location \n" +
 "groups <category> <location>[[;dimgray;black].........]List available groups by category & location \n" +
@@ -23,5 +24,6 @@ var helpPrompt =
 "users-category <category>[[;dimgray;black]..................]List available users liking a category \n" +
 "users-location <location>[[;dimgray;black]........................]List available users by location \n" +
 "users-group <group>[[;dimgray;black]...............................]List available users in a group \n" +
+"recent-users [[;dimgray;black]......................................]List recently registered users \n" +
 "share [[;dimgray;black]..........................]Got a friend nearby? user this to share the love! \n"
 
