@@ -268,6 +268,10 @@
           })
         })
     	}
+
+    	function printFailMatch(term) {
+    		term.echo('Are u missing something [[i;pink;black]bo$$] ?');
+    	}
     	
       $('body').terminal(function(command, term) {
 			    if (command == 'help') {
@@ -275,28 +279,33 @@
 			    } else if (command.match('^groups')) {
 			    	if (command.match('^groups ')) {
 			    		var match = command.match('groups ([^ ]*) ([^ ]*)');
+			    		if (!match) return printFailMatch(term);
 			    		var category = match[1];
 			    		var location = match[2];
 			    		groupsList(term, category, location);
 
 			    	} else if (command.match('^groups-location ')) {
 			    		var match = command.match('groups-location (.*)');
+			    		if (!match) return printFailMatch(term);
 			    		groupsList(term, null, match[1]);
 
 			    	} else if (command.match('^groups-category ')) {
 			    		var match = command.match('groups-category (.*)');
+			    		if (!match) return printFailMatch(term);
 			    		groupsList(term, match[1], null);
 
 			    	} else {
 			    		groupsList(term, null, null);
 			    	}
 			    } else if (command.match("^join")) {
-			    	var group = command.match("^join (.*)");
-			    	joinGroup(term, group[1]);
+			    	var match = command.match("^join (.*)");
+			    	if (!match) return printFailMatch(term);
+			    	joinGroup(term, match[1]);
 
 			    } else if (command.match("^create-group")) {
 			    	if (a7lan7is.nickname.length > 0) {
 				    	var match = command.match('create-group ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*)');
+				    	if (!match) return printFailMatch(term);
 				    	createGroup(term, match[1], match[2], match[3], match[4]);
 			    	} else {
 			    		term.echo('Please enter your [[i;pink;black]skypeid] before doing that.');
@@ -304,10 +313,12 @@
 
 			    } else if (command.match('locations')) {
 			    	var match = command.match('locations *(.*)');
+			    	if (!match) return printFailMatch(term);
 			    	listLocations(term, match[1]);
 
 			    }  else if (command.match('categories')) {
 			    	var match = command.match('categories *(.*)');
+			    	if (!match) return printFailMatch(term);
 			    	listCategories(term, match[1]);
 
 			    } else if (command.match('^users')) {
@@ -318,14 +329,17 @@
 
 			    	if (command.match('^users-location ')) {
 			    		var match = command.match('users-location (.*)');
+			    		if (!match) return printFailMatch(term);
 			    		getUsers(term, null, null, match[1]);
 
 			    	} else if (command.match('^users-category ')) {
 			    		var match = command.match('users-category (.*)');
+			    		if (!match) return printFailMatch(term);
 			    		getUsers(term, null, match[1], null);
 
 			    	} else if (command.match('^users-group ')) {
 			    		var match = command.match('users-group (.*)');
+			    		if (!match) return printFailMatch(term);
 			    		getUsers(term, match[1], null, null);
 
 			    	} else {
@@ -334,6 +348,8 @@
 
 			  	} else if (command.match('^skypeid')) {
 			    	var match = command.match('skypeid (.*)');
+			    	if (!match) return printFailMatch(term);
+
 			    	var nick = match[1];
 
 			    	a7lan7is.nickname = nick;
@@ -346,7 +362,7 @@
 			    		term.echo('Please enter your [[i;pink;black]skypeid] before doing that.');
 			    		return;
 			    	}
-			    	
+
 						getUsers(term, null, null, null, 3);
 
 					} else if (command == 'recent-groups') {
