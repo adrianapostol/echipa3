@@ -5,8 +5,8 @@ var helpPrompt =
 "\n" +
 "[[;orange;black]Group Commands...................................................................] \n" +
 "groups[[;dimgray;black]......................................................]List available groups \n" +
-"groups <category>[[;dimgray;black]...............................]List available groups by category \n" +
-"groups <location>[[;dimgray;black]...............................]List available groups by location \n" +
+"groups-category <category>[[;dimgray;black]......................]List available groups by category \n" +
+"groups-location <location>[[;dimgray;black]......................]List available groups by location \n" +
 "groups <category> <location>[[;dimgray;black].........]List available groups by category & location \n" +
 "join <group>[[;dimgray;black]...................................]Open group chat (usually on Skype) \n" +
 "locations [[;dimgray;black]............................................]List all avaiable locations \n" +
