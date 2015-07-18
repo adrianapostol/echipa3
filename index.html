@@ -1,0 +1,34 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>a7lan7is n3t</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mousewheel-min.js"></script>
+	<script src="js/jquery.terminal-0.8.8.min.js"></script>
+	<!-- <link href="css/jquery.terminal.css" rel="stylesheet"/> -->
+	<link href="css/a7lan7is.css" rel="stylesheet"/>
+
+	<script>
+    jQuery(document).ready(function($) {
+        $('body').terminal("json-rpc.php", {
+            login: true,
+            greetings: "You are authenticated",
+            onBlur: function() {
+                // the height of the body is only 2 lines initialy
+                return false;
+            }
+        });
+    });
+    </script>
+
+</head>
+
+<body>
+</body>
+</html>
