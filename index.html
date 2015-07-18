@@ -11,15 +11,15 @@
 	<script src="js/jquery-1.7.1.min.js"></script>
 	<script src="js/jquery.mousewheel-min.js"></script>
 	<script src="js/jquery.terminal-0.9.0_dev.min.js"></script>
+	<script src="js/splash.js"></script>
 	<!-- <link href="css/jquery.terminal-0.9.0_dev.css" rel="stylesheet"/> -->
 	<link href="css/a7lan7is.css" rel="stylesheet"/>
 
 	<script>
     jQuery(document).ready(function($) {
     	function greetings(term) {
-        term.echo('WELCOME TO THE DARK SIDE\n'+
-                  'The Dark Ones (C) 2015\n'+
-                  'type "help" to see all available commands');
+    		term.echo(splash);
+        term.echo('type "help" to see all available commands');
     	}
 
     	function groupsList(term) {
@@ -71,19 +71,19 @@
 					onInit: function(term) {
           	greetings(term);
       		},
-      		height: $(window).innerHeight(),
-        	width: $(window).innerWidth(),
-					resizable: false,
+      		// height: $(window).innerHeight() * 0.5,
+        	// width: $(window).innerWidth(),
+					// resizable: false,
 				});
 
-      $(window).resize(function () {
-		    $('.terminal').css({
-		            'width': $(window).innerWidth(),
-		            'height': $(window).innerHeight(),
-		            'left': '0px',
-		            'top': '0px'
-		    });
-		  }).resize();
+    //   $(window).resize(function () {
+		  //   $('.terminal').css({
+		  //           'width': $(window).innerWidth(),
+		  //           'height': $(window).innerHeight() * 0.5,
+		  //           'left': '0px',
+		  //           'top': '0px'
+		  //   });
+		  // }).resize();
 
     });
     </script>
