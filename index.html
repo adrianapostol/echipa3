@@ -16,14 +16,63 @@
 
 	<script>
     jQuery(document).ready(function($) {
-        $('body').terminal("json-rpc.php", {
-            login: true,
-            greetings: "You are authenticated",
-            onBlur: function() {
-                // the height of the body is only 2 lines initialy
-                return false;
-            }
-        });
+    	function greetings(term) {
+        term.echo('WELCOME TO THE DARK SIDE\n'+
+                  'The Dark Ones (C) 2015\n'+
+                  'type "help" to see all available commands');
+    	}
+
+    	function groupsList(term) {
+				$.getJSON( "groups.json", function( data ) {
+				  $.each( data, function( key, val ) {
+				  	term.echo('' + key);
+				  });
+				});
+    	}
+
+    	function joinGroup(term, group) {
+    		// $.getJSON( "groups.json", function( data ) {
+    		// 	var skype = data[group];
+    		// 	if (skype) {
+    		// 		window.open(skype, '_blank');
+    		// 	}
+    		// });
+
+    		// sync ajax to avoid popup blocker
+			  $.ajax({
+			    url:      "groups.json",
+			    async:    false,
+			    dataType: "json",
+			    data:     {},
+			    success:  function(data) {
+			      var skype = data[group];
+    				if (skype) {
+    					window.open(skype, '_blank');
+    				}
+			    }
+				});
+    	}
+
+      $('body').terminal(function(command, term) {
+			    if (command == 'help') {
+			      term.echo("you just typed 'help' command");
+			    } else if (command == 'groups') {
+			    	groupsList(term);
+			    } else if (command.match("^join")) {
+			    	var group = command.match("^join (.*)");
+			    	joinGroup(term, group[1]);
+			    } else {
+			      term.echo('unknown command');
+			    }
+				}, { 
+					prompt: 'tty > ', 
+					name: 'test',
+					greetings: null,
+					onInit: function(term) {
+          	greetings(term);
+      		}
+				});
+
     });
     </script>
 
