@@ -1,3 +1,6 @@
+<!doctype html>
+<html lang="en">
+
 <?php
 
 require(dirname(__FILE__) . '/Atlantis/AtlantisDbModel.php');
@@ -13,11 +16,8 @@ $configuration = array(
     )
 );
 
-$users = new User('db');
 
-echo json_encode($users->getAllUsers());
 ?>
-
 
 
 
