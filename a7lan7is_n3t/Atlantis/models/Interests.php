@@ -48,8 +48,9 @@ class Interests extends Atlantis_Db_BaseModel
        }
        
        $this->createRow(array(
-           
-       ))
+           'name' => $name,
+           'created_at' => time()
+       ));
     }
 }
  
