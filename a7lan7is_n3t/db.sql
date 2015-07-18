@@ -48,13 +48,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(50) NOT NULL,
   `join_date` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_name_group_name` (`user_name`,`group_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
--- Dumping data for table atlantis.users: ~0 rows (approximately)
+-- Dumping data for table atlantis.users: ~3 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_name`, `id`, `group_name`, `join_date`) VALUES
-    ('atcrip', 1, 'avengers', NULL);
+    ('atcrip', 1, 'avengers', 1437234074),
+    ('dr. who', 2, 'Dr. Who', 1437233946),
+    ('pacha.man', 3, 'Dr. Who', 1437234013),
+    ('sandu.gologan', 5, 'TestersUnite', 1437238616),
+    ('hackaton.share', 6, 'Star Wars', 1437239385),
+    ('hackaton.share', 7, 'hackaton', 1437239453),
+    ('hackaton.test', 8, 'hackaton', 1437239521),
+    ('hackaton.test', 11, 'hackatonTestGroup', 1437239573),
+    ('hackaton.test', 14, 'Dragon Ball', 1437240768),
+    ('hackaton.test', 15, 'Dr. Who', 1437240802),
+    ('hackaton.test', 16, 'hackatonTestGroup2', 1437240955);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
