@@ -4,14 +4,17 @@ class User extends Atlantis_Db_BaseModel
     
     protected $_name = 'users';
     
-    public function getAllUsers($gname = null, $category = null, $location = null)
+    public function getAllUsers($gname = null, $category = null, $location = null, $limit = null)
     {
         
         $select = $this->select()->from(array('u' => $this->_name), array('user_name'))
                 ->setIntegrityCheck(false)
-                ->join(array('g' => 'groups'), 'g.name = u.group_name', array())
+                ->order('u.join_date DESC')
                 ->group('u.user_name');
         
+        if (!empty($gname) || !empty($category) || !empty($location)) {
+            $select->join(array('g' => 'groups'), 'g.name = u.group_name', array());
+        }
         
         if (!empty($gname)) {
             $select->where('LOWER(g.name) = ? ', strtolower($gname));
@@ -23,6 +26,10 @@ class User extends Atlantis_Db_BaseModel
         
         if (!empty($location)) {
             $select->where('LOWER(g.location) = ? ', strtolower($location));
+        }
+        
+        if (!empty($limit)) {
+            $select->limit($limit);
         }
         
         try {

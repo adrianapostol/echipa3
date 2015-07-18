@@ -23,7 +23,7 @@
 	
 	var a7lan7is = {
 	   groups : {},
-	   getUsers : function (gname, category, location, callback) {
+	   getUsers : function (gname, category, location, limit, callback) {
            var data = {};
            
            if (typeof gname != 'undefined' && gname) {
@@ -36,6 +36,9 @@
            
            if (typeof location != 'undefined' && location) {
                data.location = location;
+           }
+           if (typeof limit != 'undefined' && limit) {
+               data.limit = limit;
            }
            
            $.ajax({
@@ -54,7 +57,7 @@
            
            });
        },
-	   loadGroups : function (name, category, location, callback) {
+	   loadGroups : function (name, category, location, limit, callback) {
 	        var data = {};
 	        
 	        if (typeof name != 'undefined' && name) {
@@ -67,6 +70,10 @@
 	        
 	        if (typeof location != 'undefined' && location) {
                 data.location = location;
+            }
+	        
+	        if (typeof limit != 'undefined' && limit) {
+               data.limit = limit;
             }
 	        
 	        $.ajax({
@@ -173,8 +180,8 @@
         term.echo('type [[g;green;black]\'help\'] to see all available commands');
     	}
 
-    	function groupsList(term, category, location) {
-				a7lan7is.loadGroups(null, category, location, function() {
+    	function groupsList(term, category, location, limit) {
+				a7lan7is.loadGroups(null, category, location, limit, function() {
 					var groups = a7lan7is.groups;
 					$.each(groups, function( key, val ) {
 						val.location = val.location.capitalize();
@@ -202,7 +209,7 @@
 
     	function joinGroup(term, group) {
     	    group = group.toLowerCase();
-    		a7lan7is.loadGroups(group, null , null, function() {
+    		a7lan7is.loadGroups(group, null , null, null, function() {
     		    if (typeof a7lan7is.groups[group] != 'undefined') {
     		        window.open(a7lan7is.groups[group]['group_link'], '_blank');
                 } else {
@@ -211,9 +218,9 @@
     		})
     	}
     	
-    	function getUsers(term, groupName, category, location) {
+    	function getUsers(term, groupName, category, location, limit) {
             group = group.toLowerCase();
-            a7lan7is.getUsers(groupName, category, location, function(json) {
+            a7lan7is.getUsers(groupName, category, location, limit, function(json) {
                 $.each(json, function(key,val) {
                    term.echo('[[i;dimgray;black]' + val + ']');
                  })

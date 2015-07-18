@@ -4,10 +4,11 @@ class Groups extends Atlantis_Db_BaseModel
     
     protected $_name = 'groups';
     
-    public function getGroup($name = null, $category = null, $location = null)
+    public function getGroup($name = null, $category = null, $location = null, $limit = null)
     {
         
         $select = $this->select()->from($this->_name);
+        $select->order('created_at DESC');
         
         if (!empty($name)) {
             $select->where('LOWER(name) = ? ', strtolower($name));
@@ -19,6 +20,11 @@ class Groups extends Atlantis_Db_BaseModel
         
         if (!empty($location)) {
             $select->where('LOWER(location) = ? ', strtolower($location));
+        }
+        
+        
+        if (!empty($limit)) {
+            $select->limit($limit);
         }
         
         try {
