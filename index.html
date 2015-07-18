@@ -23,6 +23,7 @@
 	
 	var a7lan7is = {
 	   groups : {},
+	   nickname : "",
 	   getUsers : function (gname, category, location, limit, callback) {
            var data = {};
            
@@ -62,6 +63,7 @@
 	        
 	        if (typeof name != 'undefined' && name) {
 	            data.name = name;
+	            data.skypeid = a7lan7is.nickname;
 	        }
 	        
 	        if (typeof category != 'undefined' && category) {
@@ -173,11 +175,18 @@
 	}
 
     jQuery(document).ready(function($) {
-        var groups = {};
+      var groups = {};
+
+      a7lan7is.nickname = localStorage.getItem("nickname");
         
     	function greetings(term) {
     		term.echo(splashPrompt);
         term.echo('type [[g;green;black]\'help\'] to see all available commands');
+
+        if (a7lan7is.nickname) {
+        	term.echo('Welcome back [[i;pink;black]' + a7lan7is.nickname + '] ');
+        	term.set_prompt(a7lan7is.nickname + " > ");
+        }
     	}
 
     	function groupsList(term, category, location, limit) {
@@ -219,11 +228,18 @@
     	}
     	
     	function getUsers(term, groupName, category, location, limit) {
-            group = group.toLowerCase();
             a7lan7is.getUsers(groupName, category, location, limit, function(json) {
+            	if (json.length > 0) {
                 $.each(json, function(key,val) {
                    term.echo('[[i;dimgray;black]' + val + ']');
                  })
+            	} else if (groupName) {
+            		term.echo("No one here!. Be the first to join [[g;green;black]" + groupName + "]");
+            	} else if (location) {
+            		term.echo("You're lost [[g;pink;black]Jose]!");
+            	} else if (category) {
+            		term.echo("No one here! Sorry, bro!");
+            	}
             })
         }
 
@@ -279,8 +295,12 @@
 			    	joinGroup(term, group[1]);
 
 			    } else if (command.match("^create-group")) {
-			    	var match = command.match('create-group ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*)');
-			    	createGroup(term, match[1], match[2], match[3], match[4]);
+			    	if (a7lan7is.nickname.length > 0) {
+				    	var match = command.match('create-group ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*)');
+				    	createGroup(term, match[1], match[2], match[3], match[4]);
+			    	} else {
+			    		term.echo('Please enter your [[i;pink;black]skypeid] before doing that.');
+			    	}
 
 			    } else if (command.match('locations')) {
 			    	var match = command.match('locations *(.*)');
@@ -289,6 +309,33 @@
 			    }  else if (command.match('categories')) {
 			    	var match = command.match('categories *(.*)');
 			    	listCategories(term, match[1]);
+
+			    } else if (command.match('^users')) {
+			    	if (command.match('^users-location ')) {
+			    		var match = command.match('users-location (.*)');
+			    		getUsers(term, null, null, match[1]);
+
+			    	} else if (command.match('^users-category ')) {
+			    		var match = command.match('users-category (.*)');
+			    		getUsers(term, null, match[1], null);
+
+			    	} else if (command.match('^users-group ')) {
+			    		var match = command.match('users-group (.*)');
+			    		getUsers(term, match[1], null, null);
+
+			    	} else {
+			    		term.echo('[[i;pink;black]No Way!]')
+			    	}
+
+			  	} else if (command.match('^skypeid')) {
+			    	var match = command.match('skypeid (.*)');
+			    	var nick = match[1];
+
+			    	a7lan7is.nickname = nick;
+			    	localStorage.setItem("nickname", nick);
+			    	term.echo("We go it! You're [[i;pink;black]" + nick + "]")
+			    	term.set_prompt(a7lan7is.nickname + " > ");
+
 			    } else if (command.match('^sudo')) {
 			    	term.set_prompt('Password:');
 
@@ -298,7 +345,7 @@
 			   	} else if (command == 'share') {
 			    	$("#qrcode").toggle();
 			  	} else {
-			      term.echo('unknown command');
+			      term.echo('Please hold the line, We will contact you as soon as we implement that command.');
 			    }
 				}, { 
 					prompt: 'tty > ', 
