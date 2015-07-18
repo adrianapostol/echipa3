@@ -311,6 +311,11 @@
 			    	listCategories(term, match[1]);
 
 			    } else if (command.match('^users')) {
+			    	if (a7lan7is.nickname.length == 0) {
+			    		term.echo('Please enter your [[i;pink;black]skypeid] before doing that.');
+			    		return;
+			    	}
+
 			    	if (command.match('^users-location ')) {
 			    		var match = command.match('users-location (.*)');
 			    		getUsers(term, null, null, match[1]);
@@ -337,10 +342,20 @@
 			    	term.set_prompt(a7lan7is.nickname + " > ");
 
 			    } else if (command == 'recent-users') {
+			    	if (a7lan7is.nickname.length == 0) {
+			    		term.echo('Please enter your [[i;pink;black]skypeid] before doing that.');
+			    		return;
+			    	}
+			    	
 						getUsers(term, null, null, null, 3);
 
 					} else if (command == 'recent-groups') {
 						groupsList(term, null, null, 3);
+
+			    } else if (command == 'logout') {
+						term.set_prompt('tty > ');
+      			a7lan7is.nickname = "";
+			    	localStorage.setItem("nickname", "");
 
 			    } else if (command.match('^sudo')) {
 			    	term.set_prompt('Password:');

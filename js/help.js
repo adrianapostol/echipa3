@@ -25,5 +25,6 @@ var helpPrompt =
 "users-location <location>[[;dimgray;black]........................]List available users by location \n" +
 "users-group <group>[[;dimgray;black]...............................]List available users in a group \n" +
 "recent-users [[;dimgray;black]......................................]List recently registered users \n" +
-"share [[;dimgray;black]..........................]Got a friend nearby? user this to share the love! \n"
+"share [[;dimgray;black]..........................]Got a friend nearby? user this to share the love! \n" +
+"logout [[;dimgray;black]...............................................................]Just guess! \n"
 
