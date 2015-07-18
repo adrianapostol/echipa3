@@ -67,12 +67,13 @@
     	function groupsList(term) {
 				a7lan7is.loadGroups(null, null, null, function() {
 				    $.each( a7lan7is.groups, function( key, val ) {
-	                    term.echo('' + key);
+	                    term.echo('' + val.group_name);
 	                  })
 	            })
     	}
 
     	function joinGroup(term, group) {
+    	    group = group.toLowerCase();
     		a7lan7is.loadGroups(group, null , null, function() {
     		    if (typeof a7lan7is.groups[group] != 'undefined') {
     		        window.open(a7lan7is.groups[group]['group_link'], '_blank');

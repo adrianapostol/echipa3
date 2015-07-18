@@ -10,15 +10,15 @@ class Groups extends Atlantis_Db_BaseModel
         $select = $this->select()->from($this->_name);
         
         if (!empty($name)) {
-            $select->where('name = ? ', $name);
+            $select->where('LOWER(name) = ? ', strtolower($name));
         }
         
         if (!empty($category)) {
-            $select->where('category_name = ? ', $category);
+            $select->where('LOWER(category_name) = ? ', strtolower($category));
         }
         
         if (!empty($location)) {
-            $select->where('location = ? ', $location);
+            $select->where('LOWER(location) = ? ', strtolower($location));
         }
         
         try {
@@ -32,7 +32,8 @@ class Groups extends Atlantis_Db_BaseModel
             return $groups;
         }
         foreach ($gs as $g) {
-            $groups[$g['name']] = array (
+            $groups[strtolower($g['name'])] = array (
+                    'group_name' => $g['name'],
                     'group_link' => $g['group_link'],
                     'category_name' => $g['category_name'],
                     'location' => $g['location']
