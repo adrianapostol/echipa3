@@ -15,7 +15,40 @@
 	<link href="css/a7lan7is.css" rel="stylesheet"/>
 
 	<script>
+	
+	
+	var a7lan7is = {
+	   groups : {},
+	   loadGroups : function (name, callback) {
+	        var data = {};
+	        
+	        if (typeof name != 'undefined' && name) {
+	            data = {name : name};
+	        }
+	        
+	        $.ajax({
+	            url:      "/a7lan7is_n3t/getGroups.php",
+	            async:    false,
+	            dataType: "json",
+	            data:     data,
+	            success:  function(json) {
+	                if (json) {
+		                a7lan7is.groups = $.extend({}, a7lan7is.groups, json);
+		            }
+	                
+	            },
+	            complete :  function() {
+	                if (typeof callback === 'function') {
+                        callback();
+                    }
+	            }
+	        
+            });
+	    }
+	}
     jQuery(document).ready(function($) {
+        var groups = {};
+        
     	function greetings(term) {
         term.echo('WELCOME TO THE DARK SIDE\n'+
                   'The Dark Ones (C) 2015\n'+
@@ -23,36 +56,23 @@
     	}
 
     	function groupsList(term) {
-				$.getJSON( "groups.json", function( data ) {
-				  $.each( data, function( key, val ) {
-				  	term.echo('' + key);
-				  });
-				});
+				a7lan7is.loadGroups(false, function() {
+				    $.each( a7lan7is.groups, function( key, val ) {
+	                    term.echo('' + key);
+	                  })
+	            })
     	}
 
     	function joinGroup(term, group) {
-    		// $.getJSON( "groups.json", function( data ) {
-    		// 	var skype = data[group];
-    		// 	if (skype) {
-    		// 		window.open(skype, '_blank');
-    		// 	}
-    		// });
-
-    		// sync ajax to avoid popup blocker
-			  $.ajax({
-			    url:      "groups.json",
-			    async:    false,
-			    dataType: "json",
-			    data:     {},
-			    success:  function(data) {
-			      var skype = data[group];
-    				if (skype) {
-    					window.open(skype, '_blank');
-    				}
-			    }
-				});
+    		a7lan7is.loadGroups(group, function() {
+    		    if (typeof a7lan7is.groups[group] != 'undefined') {
+    		        window.open(a7lan7is.groups[group], '_blank');
+                } else {
+                    term.echo(group + ' not found');
+                }
+    		})
     	}
-
+    	
       $('body').terminal(function(command, term) {
 			    if (command == 'help') {
 			      term.echo("you just typed 'help' command");
