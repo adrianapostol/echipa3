@@ -11,6 +11,7 @@
 	<script src="js/jquery-1.7.1.min.js"></script>
 	<script src="js/jquery.mousewheel-min.js"></script>
 	<script src="js/jquery.terminal-0.9.0_dev.min.js"></script>
+	<script src="js/qrcode.min.js"></script>
 	<script src="js/splash.js"></script>
 	<script src="js/help.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
@@ -241,8 +242,15 @@
 			    }  else if (command.match('categories')) {
 			    	var match = command.match('categories *(.*)');
 			    	listCategories(term, match[1]);
+			    } else if (command.match('^sudo')) {
+			    	term.set_prompt('Password:');
 
-			    } else {
+			    } else if (command.match('^(ls|rm|cat|grep)')) {
+			    	term.echo('[[i;pink;black]Gee!] you think so?!')
+
+			   	} else if (command == 'share') {
+			    	$("#qrcode").toggle();
+			  	} else {
 			      term.echo('unknown command');
 			    }
 				}, { 
@@ -256,11 +264,18 @@
       			greetings(term);
       		}
 				});
+
+			new QRCode(document.getElementById("qrcode"), window.location.href);
+			$("#qrcode").hide();
     });
     </script>
 
 </head>
 
 <body>
+ <div style="position: absolute; left: 50%; top: 20px;">
+    <div id="qrcode" style="position: relative; left: -50%; padding: 20px; background-color:white;">
+    </div>
+  </div>
 </body>
 </html>
