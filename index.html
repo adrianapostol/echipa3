@@ -10,8 +10,10 @@
 
 	<script src="js/jquery-1.7.1.min.js"></script>
 	<script src="js/jquery.mousewheel-min.js"></script>
-	<script src="js/jquery.terminal-0.8.8.min.js"></script>
-	<!-- <link href="css/jquery.terminal.css" rel="stylesheet"/> -->
+	<script src="js/jquery.terminal-0.9.0_dev.min.js"></script>
+	<script src="js/splash.js"></script>
+	<script src="js/help.js"></script>
+	<!-- <link href="css/jquery.terminal-0.9.0_dev.css" rel="stylesheet"/> -->
 	<link href="css/a7lan7is.css" rel="stylesheet"/>
 
 	<script>
@@ -59,9 +61,8 @@
         var groups = {};
         
     	function greetings(term) {
-        term.echo('WELCOME TO THE DARK SIDE\n'+
-                  'The Dark Ones (C) 2015\n'+
-                  'type "help" to see all available commands');
+    		term.echo(splashPrompt);
+        term.echo('type [[g;green;black]\'help\'] to see all available commands');
     	}
 
     	function groupsList(term) {
@@ -85,7 +86,7 @@
     	
       $('body').terminal(function(command, term) {
 			    if (command == 'help') {
-			      term.echo("you just typed 'help' command");
+			      term.echo(helpPrompt);
 			    } else if (command == 'groups') {
 			    	groupsList(term);
 			    } else if (command.match("^join")) {
@@ -102,7 +103,6 @@
           	greetings(term);
       		}
 				});
-
     });
     </script>
 
