@@ -1,4 +1,5 @@
-var splash = "                __                             ___            _yygL\n" +
+var splashPrompt = 
+"                __                             ___            _yygL\n" +
 "               #####gy_,                    y#######g   __g########g \n" +
 "              g#F   `M##bg.                g#\"'    ###g####~'    9##L \n" +
 "             ##F       `###g____yyyyy_____j#\"        ###          ##E \n" +

@@ -12,14 +12,15 @@
 	<script src="js/jquery.mousewheel-min.js"></script>
 	<script src="js/jquery.terminal-0.9.0_dev.min.js"></script>
 	<script src="js/splash.js"></script>
+	<script src="js/help.js"></script>
 	<!-- <link href="css/jquery.terminal-0.9.0_dev.css" rel="stylesheet"/> -->
 	<link href="css/a7lan7is.css" rel="stylesheet"/>
 
 	<script>
     jQuery(document).ready(function($) {
     	function greetings(term) {
-    		term.echo(splash);
-        term.echo('type "help" to see all available commands');
+    		term.echo(splashPrompt);
+        term.echo('type [[g;green;black]\'help\'] to see all available commands');
     	}
 
     	function groupsList(term) {
@@ -31,14 +32,6 @@
     	}
 
     	function joinGroup(term, group) {
-    		// $.getJSON( "groups.json", function( data ) {
-    		// 	var skype = data[group];
-    		// 	if (skype) {
-    		// 		window.open(skype, '_blank');
-    		// 	}
-    		// });
-
-    		// sync ajax to avoid popup blocker
 			  $.ajax({
 			    url:      "groups.json",
 			    async:    false,
@@ -55,7 +48,7 @@
 
       $('body').terminal(function(command, term) {
 			    if (command == 'help') {
-			      term.echo("you just typed 'help' command");
+			      term.echo(helpPrompt);
 			    } else if (command == 'groups') {
 			    	groupsList(term);
 			    } else if (command.match("^join")) {
@@ -70,21 +63,8 @@
 					greetings: null,
 					onInit: function(term) {
           	greetings(term);
-      		},
-      		// height: $(window).innerHeight() * 0.5,
-        	// width: $(window).innerWidth(),
-					// resizable: false,
+      		}
 				});
-
-    //   $(window).resize(function () {
-		  //   $('.terminal').css({
-		  //           'width': $(window).innerWidth(),
-		  //           'height': $(window).innerHeight() * 0.5,
-		  //           'left': '0px',
-		  //           'top': '0px'
-		  //   });
-		  // }).resize();
-
     });
     </script>
 
