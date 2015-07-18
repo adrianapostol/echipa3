@@ -167,6 +167,16 @@
                 }
     		})
     	}
+
+    	function createGroup(term, name, category, location, url) {
+    		a7lan7is.createGroup(name, category, location, url, function(json) {
+    			if (json) {
+    				term.echo('You da bo$$!');
+    			} else {
+    				term.echo('error creating group');
+    			}
+    		})
+    	}
     	
       $('body').terminal(function(command, term) {
 			    if (command == 'help') {
@@ -192,6 +202,11 @@
 			    } else if (command.match("^join")) {
 			    	var group = command.match("^join (.*)");
 			    	joinGroup(term, group[1]);
+
+			    } else if (command.match("^create-group")) {
+			    	var match = command.match('create-group ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*)');
+			    	createGroup(term, match[1], match[2], match[3], match[4]);
+
 			    } else {
 			      term.echo('unknown command');
 			    }
@@ -201,6 +216,9 @@
 					greetings: null,
 					onInit: function(term) {
           	greetings(term);
+      		},
+      		onClear: function(term) {
+      			greetings(term);
       		}
 				});
     });
