@@ -127,6 +127,12 @@
             });
 	    }
 	}
+
+
+	String.prototype.capitalize = function() {
+	  return this.charAt(0).toUpperCase() + this.slice(1);
+	}
+
     jQuery(document).ready(function($) {
         var groups = {};
         
@@ -137,8 +143,13 @@
 
     	function groupsList(term, category, location) {
 				a7lan7is.loadGroups(null, category, location, function() {
+					var groups = a7lan7is.groups;
+					$.each(groups, function( key, val ) {
+						val.location = val.location.capitalize();
+					})
+
 					var grouped = _
-					.chain(a7lan7is.groups)
+					.chain(groups)
 					.groupBy('location')
 					.map(function(value, key) {
 					    return {
@@ -171,7 +182,7 @@
     	function createGroup(term, name, category, location, url) {
     		a7lan7is.createGroup(name, category, location, url, function(json) {
     			if (json) {
-    				term.echo('You da bo$$!');
+    				term.echo('You da bo$$ of [[g;green;black]' + name + ']. 	 ');
     			} else {
     				term.echo('error creating group');
     			}
