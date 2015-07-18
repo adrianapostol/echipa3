@@ -55,6 +55,29 @@
 	            }
 	        
             });
+	    },
+	    createGroup: function (name, category, location, url, callback) {
+	        data = {
+	                name :  name,
+	                category : category,
+	                location : location,
+	                url :  url
+	        };
+	        $.ajax({
+                url:      "/a7lan7is_n3t/createGroup.php",
+                async:    false,
+                dataType: "json",
+                data:     data,
+                success:  function(json) {
+                    if (typeof callback === 'function') {
+                        callback(url);
+                    }
+                },
+                error :  function() {
+                    
+                }
+            
+            });
 	    }
 	}
     jQuery(document).ready(function($) {

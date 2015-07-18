@@ -24,8 +24,8 @@ class Groups extends Atlantis_Db_BaseModel
         try {
             $gs = $this->fetchAll($select);
         } catch (Exception $e){
-        }
-        ;
+        };
+        
         $groups = array();
         
         if (null == $gs) {
@@ -36,10 +36,39 @@ class Groups extends Atlantis_Db_BaseModel
                     'group_name' => $g['name'],
                     'group_link' => $g['group_link'],
                     'category_name' => $g['category_name'],
-                    'location' => $g['location']
+                    'location' => $g['location'],
+                    'created_at' => $g['created_at']
             );
         }
         
         return $groups;
+    }
+    
+    public function createGroup($name , $category , $location , $url)
+    {
+        
+        try {
+            $group = $this->getGroup($name);
+            if (isset($group[strtolower($name)])) {
+                return $group[strtolower($name)];
+            }
+            $row = $this->createRow(array(
+                'name' =>  $name,
+                'group_link' =>  $url,
+                'category_name' =>  $category,
+                'location' =>  $location,
+                'created_at' => time()
+            ));
+            $row->save();
+            $row = $row->toArray();
+            $row['group_name'] = $row['name'];
+            unset($row['name']);
+            unset($row['id']);
+            
+        } catch (Exception $e) {
+            $row = null;
+        }
+        
+        return $row;
     }
 }
