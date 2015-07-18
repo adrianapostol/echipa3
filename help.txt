@@ -1,0 +1,45 @@
+THE BRIGHT SIDE©
+Connecting co workers which share common interests
+
+Available commands are:
+--------------------------------------------------------------------------------------------------------------
+
+
+Account commands..............................................................................................
+create account......................................................................Creates a new user account
+  |-> username: <username>
+  |-> password: <password>
+  |-> skypeId: <skypeID>
+  |-> location: <location>
+add --interest|-i <interest>................................Add a new interest to the currently logged in user
+
+ 
+Interest commands.............................................................................................
+interests...........................................................................Lists all available topics
+interests --location|-l <location>........................Lists all interests available for the given location
+create --interest|-i <interest>............................Creates a new interest (user must have permissions)
+delete --interest|-i <interest>.........................Deletes an existing topic (user must have permissions)
+
+
+Group commands.................................................................................................
+groups...................................................................................Lists all Skype groups
+groups --interest|-i <interest>........................................Lists all Skype groups for a given topic
+groups --location|-l <location>.......................................Lists all Groups for a specified location
+<!------------------------------ groups command supports multiple arguments ---------------------------------->
+join <group>........................................................Launches Skype and joins the selected group
+create --group|-g <group> --topic|-t <topic> -uri|--uri <skypeUri>...Adds a new group under the specified topic
+delete --group|-g <group>..........................Deletes an existing Skype group (user must have permissions)
+get-qr --group|-g <group>...........Generates a QR code for a Skype group invite and copies it to the clipboard
+
+
+Users commands..................................................................................................
+users.............................................................................................List all users
+users --interest|-i <interest>..............................Lists all users that share a common interest (topic)
+users --location|-l <location>.........................................Lists all users from a specified location
+<!-------------------------------- users command supports multiple arguments ---------------------------------->
+chat --user|-u <user>................................................Starts a Skype chat with the specified user
+invite --user|-u <userName> --group|-g <group>..................................Invite user to a specified group
+
+
+Location commands...............................................................................................
+locations...........................................................................List all available locations
