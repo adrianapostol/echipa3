@@ -18,7 +18,7 @@ USE `atlantis`;
 -- Dumping structure for table atlantis.groups
 CREATE TABLE IF NOT EXISTS `groups` (
   `name` varchar(50) NOT NULL,
-  `group_link` varchar(50) NOT NULL,
+  `group_link` varchar(250) NOT NULL,
   `location` varchar(50) NOT NULL,
   `category_name` varchar(50) NOT NULL,
   `created_at` int(11) NOT NULL,
