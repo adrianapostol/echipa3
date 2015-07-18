@@ -10,8 +10,8 @@
 
 	<script src="js/jquery-1.7.1.min.js"></script>
 	<script src="js/jquery.mousewheel-min.js"></script>
-	<script src="js/jquery.terminal-0.8.8.min.js"></script>
-	<!-- <link href="css/jquery.terminal.css" rel="stylesheet"/> -->
+	<script src="js/jquery.terminal-0.9.0_dev.min.js"></script>
+	<!-- <link href="css/jquery.terminal-0.9.0_dev.css" rel="stylesheet"/> -->
 	<link href="css/a7lan7is.css" rel="stylesheet"/>
 
 	<script>
@@ -70,8 +70,20 @@
 					greetings: null,
 					onInit: function(term) {
           	greetings(term);
-      		}
+      		},
+      		height: $(window).innerHeight(),
+        	width: $(window).innerWidth(),
+					resizable: false,
 				});
+
+      $(window).resize(function () {
+		    $('.terminal').css({
+		            'width': $(window).innerWidth(),
+		            'height': $(window).innerHeight(),
+		            'left': '0px',
+		            'top': '0px'
+		    });
+		  }).resize();
 
     });
     </script>
